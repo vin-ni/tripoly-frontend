@@ -11,7 +11,7 @@ module.exports = {
   extends: 'eslint:recommended',
   parser: '@babel/eslint-parser',
   rules: {
-    semi: ['error', 'always'],
+    semi: ['error', 'never'],
     quotes: ['error', 'single'],
     'function-paren-newline': ['error', 'never'],
     'array-element-newline': [
@@ -22,4 +22,4 @@ module.exports = {
       },
     ],
   },
-};
+}
