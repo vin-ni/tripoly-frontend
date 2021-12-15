@@ -14,6 +14,10 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
+  styleResources: {
+    scss: ['~assets/scss/mixins.scss', '~assets/scss/variables.scss'],
+  },
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
 
@@ -24,6 +28,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -54,4 +59,4 @@ export default {
     port: process.env.PORT || 3000, // default: 3000
     host: process.env.HOST || '127.0.0.1', // default: localhost 0.0.0.0 for sharing // 127.0.0.1 for online
   },
-}
+};
