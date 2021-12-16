@@ -1,4 +1,12 @@
 body {
   background-color: $grey;
-  padding: 16px 30px 16px 30px;
+  padding: 12px 30px 12px 30px;
+}
+
+hr {
+  margin-top: $fourSpacing;
+  margin-bottom: $singleSpacing;
+  background-color: $textColor;
+  height: 1px;
+  border: 0;
 }

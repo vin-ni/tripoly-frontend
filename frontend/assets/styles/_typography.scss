@@ -31,6 +31,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+p {
+  margin-bottom: $singleSpacing;
+}
+
 a {
   color: $textColor;
   text-decoration: underline;
@@ -46,28 +50,19 @@ h2 {
   font-weight: 700;
   font-size: 96px;
   line-height: 125px;
+  margin-bottom: $singleSpacing;
+  margin-top: $singleSpacing;
+
+  display: inline-block;
 }
 
-.five-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 0px 40px;
-  grid-template-areas: 'four four four four .';
-}
+ul {
+  list-style-type: '-  ';
+  margin-left: 1em;
 
-.columns-two {
-  column-count: 2;
-  column-gap: $columnGapDesktop;
-  width: 100%;
-}
-
-.span-two-first {
-  grid-area: 1 / 1 / 2 / 3;
-}
-.span-two-last {
-  grid-area: 1 / 3 / 2 / 5;
-}
-.span-four {
-  grid-area: 1 / 1 / 2 / 5;
+  li {
+    list-style-position: outside;
+    padding-left: 0.5em;
+    margin-bottom: 0.4rem;
+  }
 }

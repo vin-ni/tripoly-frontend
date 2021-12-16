@@ -1,1 +1,47 @@
+.five-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 40px;
+  grid-template-areas: 'four four four four .';
+}
 
+.columns-two {
+  column-count: 2;
+  column-gap: $columnGapDesktop;
+  width: 100%;
+}
+
+.span-two-first {
+  grid-area: 1 / 1 / 2 / 3;
+}
+.span-two-last {
+  grid-area: 1 / 3 / 2 / 5;
+}
+.span-four {
+  grid-area: 1 / 1 / 2 / 5;
+}
+
+// toggle how to
+.toggle-howto {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  height: auto;
+  width: auto;
+
+  .toggle-arrow {
+    height: 100%;
+    transition: transform 0.5s ease-out;
+
+    &.rotated {
+      transform: rotate(180deg);
+    }
+  }
+
+  h2 {
+    margin-right: 24px;
+  }
+}
