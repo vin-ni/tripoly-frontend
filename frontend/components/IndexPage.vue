@@ -1,6 +1,7 @@
 <template>
   <div>
     <p>index</p>
+    <p>deploy test</p>
   </div>
 </template>
 
