@@ -1,25 +1,15 @@
 module.exports = {
-  parserOptions: {
-    ecmaVersion: 2018,
-    requireConfigFile: false,
-  },
+  root: true,
   env: {
     browser: true,
-    es6: true,
     node: true,
   },
-  extends: 'eslint:recommended',
-  parser: '@babel/eslint-parser',
-  rules: {
-    semi: ['error', 'never'],
-    quotes: ['error', 'single'],
-    'function-paren-newline': ['error', 'never'],
-    'array-element-newline': [
-      'error',
-      {
-        ArrayExpression: 'consistent',
-        ArrayPattern: { minItems: 3 },
-      },
-    ],
+  parserOptions: {
+    parser: '@babel/eslint-parser',
+    requireConfigFile: false,
   },
+  extends: ['@nuxtjs', 'plugin:nuxt/recommended', 'prettier'],
+  plugins: [],
+  // add your custom rules here
+  rules: {},
 }

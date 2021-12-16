@@ -13,6 +13,7 @@
     "prod": "nuxt build && pm2 restart ./ecosystem.config.js"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.16.5",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/style-resources": "^1.2.1",
