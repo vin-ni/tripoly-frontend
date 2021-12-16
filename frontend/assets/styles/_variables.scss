@@ -1,11 +1,15 @@
 //colors
 $textColor: #2ba5eb;
 $grey: #e9e9e9;
+$white: #fff;
 $black: #000000;
 
 // spacing
 $singleSpacing: 12px;
+$doubleSpacing: calc($singleSpacing * 2);
 $fourSpacing: calc($singleSpacing * 4);
+
+$desktopPadding: 30px;
 
 // sizes
 $textStandard: 18px;

@@ -33,6 +33,7 @@ body {
 
 p {
   margin-bottom: $singleSpacing;
+  line-height: 135%;
 }
 
 a {
@@ -51,9 +52,15 @@ h2 {
   font-size: 96px;
   line-height: 125px;
   margin-bottom: $singleSpacing;
-  margin-top: $singleSpacing;
 
   display: inline-block;
+}
+
+h3 {
+  font-size: 32px;
+  line-height: 42px;
+  display: inline-block;
+  font-weight: 500;
 }
 
 ul {

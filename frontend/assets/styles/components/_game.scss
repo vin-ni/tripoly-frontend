@@ -1,0 +1,75 @@
+.game {
+  .game-wrapper {
+    padding: 0 $desktopPadding 0 $desktopPadding;
+  }
+
+  .field-info {
+    display: flex;
+    justify-content: flex-end;
+    p {
+      display: inline-block;
+      background-color: $white;
+      padding: 4px 12px 4px 12px;
+      font-size: 32px;
+      line-height: 42px;
+      display: inline-block;
+      margin: 0;
+    }
+  }
+
+  .company-info {
+    width: 100%;
+    margin-bottom: $fourSpacing;
+    padding-bottom: $doubleSpacing;
+    background-color: $white;
+
+    .content {
+      padding: 0 $desktopPadding 0 $desktopPadding;
+      margin-bottom: 20px;
+    }
+
+    button {
+      font-size: 32px;
+      line-height: 32px;
+      color: $white;
+      background-color: $textColor;
+      padding: 6px 20px 12px 20px;
+      border: 0;
+
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: $textColor;
+        background-color: $grey;
+      }
+    }
+
+    .project {
+      padding: $doubleSpacing $desktopPadding 0 $desktopPadding;
+      margin: 0;
+      padding-bottom: 50px;
+
+      h3 {
+        font-size: 48px;
+        line-height: 62px;
+        margin-bottom: 0.4em;
+      }
+
+      .ar {
+        .qr-code {
+          width: 100px;
+
+          img {
+            width: 100px;
+            height: 100px;
+          }
+
+          p {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

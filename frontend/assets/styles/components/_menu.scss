@@ -1,9 +1,9 @@
 .menu {
+  width: 100%;
+  padding: 4px $desktopPadding 0 $desktopPadding;
   display: flex;
 
   a {
     margin-right: 16px;
   }
-
-  width: 100%;
 }
