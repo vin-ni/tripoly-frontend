@@ -83,7 +83,7 @@
           <img
             ref="companyimg"
             class="companyimg"
-            src=""
+            :src="nft.projectImgUrl"
             alt="company image or logo"
           />
           <div class="qr-code">
@@ -137,6 +137,7 @@ export default {
         name: '',
         description: '',
         arObj: {},
+        projectImgUrl: '',
       },
       gameState: {
         gameJoined: false,
@@ -566,8 +567,20 @@ export default {
         )
         nftSpecificData = await nftSpecificData.json()
         console.log(nftSpecificData)
-
         this.nft.arObj = nftSpecificData
+
+        // getting the image url
+        const nftImage = await fetch(
+          `https://infura-ipfs.io/ipfs/${nftSpecificData.Image}/`
+        )
+        const nftImageUrl = nftImage.url
+        this.nft.projectImgUrl = nftImageUrl
+        console.log(nftImage)
+
+        // get qr code url
+
+        const qrUrl = `https://infura-ipfs.io/ipfs/${nftSpecificData.Hash}/${nftSpecificData.Name}`
+        console.log(qrUrl)
       }
     },
   },
