@@ -1,0 +1,40 @@
+.other-player {
+  // background-color: yellow;
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+
+    margin-bottom: 6px;
+    padding-top: 6px;
+    p {
+      // background-color: red;
+      width: 100%;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    img {
+      // background-color: orange;
+      transition: transform 0.3s ease-in-out;
+
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .additional-info {
+    p {
+      font-size: 14px;
+      margin-bottom: 0px;
+      font-weight: 500;
+    }
+    margin-bottom: $singleSpacing;
+  }
+
+  .border {
+    border-bottom: solid 1px $textColor;
+  }
+}

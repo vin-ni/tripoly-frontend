@@ -12,11 +12,10 @@
       <div class="gaming-field">
         <div class="gamer-wrapper">
           <div class="gamer">
-            <h3>Marcel</h3>
-            <p>Current Position: 17</p>
-            <p>Saved CO2 in kilo: 400</p>
-            <p>Last dice roll: 2021-12-14T20:29:29Z</p>
-            <p>Supported Fields: undefined</p>
+            <h3>{{ gameState.player.name }}</h3>
+            <p>Current Position: {{ gameState.player.position }}</p>
+            <p>Saved CO2 in kilo: {{ gameState.player.savedc02 }}</p>
+            <p>Last dice roll: {{ gameState.player.last_dice_roll }}</p>
           </div>
         </div>
         <div class="board-wrapper">
@@ -25,6 +24,9 @@
         <div class="other-players-wrapper">
           <div class="other-players">
             <h3>Other players</h3>
+            <div v-for="(player, index) in gameState.otherPlayers" :key="index">
+              <OtherPlayer :info="player" />
+            </div>
           </div>
         </div>
       </div>
@@ -72,6 +74,9 @@ export default {
   props: {},
   data() {
     return {
+      params: {
+        useSampleData: true,
+      },
       gameState: {
         player: {
           name: '',
@@ -79,6 +84,7 @@ export default {
           position: '',
           last_dice_roll: '',
           walletID: '',
+          supportedGameFields: [],
         },
         otherPlayers: [],
       },
@@ -89,6 +95,7 @@ export default {
           position: 15,
           last_dice_roll: '2021-12-14T20:29:29Z',
           walletID: 'tz1dHDTd42M6s18vwcUyYfBydYpCHKChZ5ot',
+          supportedGameFields: [],
         },
         otherPlayers: [
           {
@@ -97,6 +104,7 @@ export default {
             position: 2,
             last_dice_roll: '2021-12-14T20:29:29Z',
             walletID: 'tz1dHDTd42M6s18vwcUyYfBydYpCHKChZ5ot',
+            supportedGameFields: [],
           },
           {
             name: 'Player 2',
@@ -104,6 +112,7 @@ export default {
             position: 12,
             last_dice_roll: '2021-12-14T20:29:29Z',
             walletID: 'tz1dHDTd42M6s18vwcUyYfBydYpCHKChZ5ot',
+            supportedGameFields: [],
           },
           {
             name: 'Player 3',
@@ -111,14 +120,24 @@ export default {
             position: 4,
             last_dice_roll: '2021-12-14T20:29:29Z',
             walletID: 'tz1dHDTd42M6s18vwcUyYfBydYpCHKChZ5ot',
+            supportedGameFields: [],
           },
         ],
       },
     }
   },
   computed: {},
-  mounted() {},
+  mounted() {
+    if (this.params.useSampleData) {
+      this.useSampleData()
+    }
+  },
   created() {},
-  methods: {},
+  methods: {
+    useSampleData() {
+      this.gameState.player = this.sampleData.player
+      this.gameState.otherPlayers = this.sampleData.otherPlayers
+    },
+  },
 }
 </script>
