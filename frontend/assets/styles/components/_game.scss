@@ -82,16 +82,17 @@
             width: 100%;
             height: 100%;
             transform: scale(1.4);
-            background-color: rgba($color: #ff0000, $alpha: 0.1);
+            background-color: rgba($color: #ff0000, $alpha: 0);
 
             .player {
               position: absolute;
               top: 0;
               left: 0;
-              width: 25px;
-              height: 25px;
-              border-radius: 50px;
+              width: 6%;
+              height: 6%;
+              border-radius: 100%;
               background-color: $playerColor;
+              opacity: 0;
             }
 
             .otherPlayer {

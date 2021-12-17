@@ -16,7 +16,7 @@
             <p>Current Position: {{ gameState.player.position }}</p>
             <p>Saved CO2 in kilo: {{ gameState.player.savedc02 }}</p>
             <p>Last dice roll: {{ gameState.player.last_dice_roll }}</p>
-            <button @click="playerNextField()">Next Field</button>
+            <button @click="movePlayerToNextField()">Next Field</button>
           </div>
         </div>
         <div class="board-wrapper">
@@ -79,6 +79,9 @@
 </template>
 
 <script>
+import { gsap, Power4 } from 'gsap'
+import gamefielddata from '@/assets/js/gamefielddata.json'
+
 export default {
   name: 'GameComp',
   props: {},
@@ -87,6 +90,7 @@ export default {
       params: {
         useSampleData: true,
         contract: 'KT1PZNb78PUiDRXmFGXPEyGaiocpk623CkEJ',
+        gamefielddata,
       },
       gameState: {
         player: {
@@ -142,6 +146,8 @@ export default {
     if (this.params.useSampleData) {
       this.useSampleData()
     }
+
+    this.resetData()
   },
   created() {},
   methods: {
@@ -150,8 +156,61 @@ export default {
       this.gameState.otherPlayers = this.sampleData.otherPlayers
     },
 
-    playerNextField() {
-      console.log('yeah')
+    resetData() {
+      this.gameState.player.position = 1
+      this.movePlayerToCurrentField()
+    },
+
+    movePlayerToCurrentField() {
+      const currentPosition = this.gameState.player.position
+
+      // calculate coordinates
+      const coordinates = this.params.gamefielddata.positions[currentPosition]
+      const offset = this.$refs.player.offsetWidth / 2
+      const divisor = this.params.gamefielddata.divisor
+      const gameSize = this.$refs.boardgame.offsetWidth
+
+      const newCoordinates = {
+        x: (parseInt(coordinates.x) / divisor) * gameSize - offset,
+        y: (parseInt(coordinates.y) / divisor) * gameSize - offset,
+      }
+
+      this.movePlayerToPosition(this.$refs.player, newCoordinates)
+    },
+
+    movePlayerToNextField() {
+      const positions = Object.keys(this.params.gamefielddata.positions).length
+
+      let newPosition = this.gameState.player.position + 1
+      if (newPosition > positions) {
+        newPosition = 1
+      }
+      this.gameState.player.position = newPosition
+
+      // calculate coordinates
+      const coordinates = this.params.gamefielddata.positions[newPosition]
+      const offset = this.$refs.player.offsetWidth / 2
+      const divisor = this.params.gamefielddata.divisor
+      const gameSize = this.$refs.boardgame.offsetWidth
+
+      const newCoordinates = {
+        x: (parseInt(coordinates.x) / divisor) * gameSize - offset,
+        y: (parseInt(coordinates.y) / divisor) * gameSize - offset,
+      }
+
+      this.movePlayerToPosition(this.$refs.player, newCoordinates)
+    },
+
+    movePlayerToPosition(player, position) {
+      gsap.to(player, {
+        duration: 0.4,
+        x: position.x,
+        y: position.y,
+        ease: Power4.easeInOut,
+        onComplete: () => {
+          player.style.opacity = 1
+        },
+      })
     },
   },
 }
