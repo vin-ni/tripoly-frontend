@@ -40,6 +40,10 @@
           </div>
         </div>
       </div>
+      <div class="dice-wrapper">
+        <img src="@/assets/img/1.png" alt="" />
+        <p>Dice Placeholder</p>
+      </div>
     </div>
     <div class="field-info">
       <p>Field 17</p>
