@@ -108,8 +108,6 @@
         <button>Support</button>
       </div>
     </div>
-
-    <div><p>storage</p></div>
   </section>
 </template>
 
