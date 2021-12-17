@@ -14,7 +14,7 @@
             <!-- <button :disabled="!gameState.gameJoined" @click="leave()"> -->
             <p>Leave</p>
           </button>
-          <button @click="clock()">
+          <button :disabled="!wallet.connected" @click="clock()">
             <!-- <button :disabled="!gameState.gameJoined" @click="leave()"> -->
             <p>Clock</p>
           </button>
@@ -418,6 +418,27 @@ export default {
 
     clock() {
       console.log('clock')
+      this.client
+        .requestOperation({
+          operationDetails: [
+            {
+              // eslint-disable-next-line no-undef
+              kind: beacon.TezosOperationType.TRANSACTION,
+              amount: '0',
+              destination: this.params.contract,
+              parameters: {
+                entrypoint: 'clock',
+                value: {
+                  prim: 'Unit',
+                },
+              },
+            },
+          ],
+        })
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => console.log(error))
     },
   },
 }
