@@ -100,6 +100,8 @@
         <button>Support</button>
       </div>
     </div>
+
+    <div><p>storage</p></div>
   </section>
 </template>
 
@@ -120,6 +122,7 @@ export default {
         useSampleData: true,
         contract: 'KT19hqf8T654T3sFxRJpsULTtimqyGYK7Lhk',
         gamefielddata,
+        stateLoop: 10, // in seconds
       },
       wallet: {
         connected: false,
@@ -194,6 +197,7 @@ export default {
 
     this.resetData()
     this.setUpBeaconClient()
+    this.storageLoop()
   },
   created() {},
   methods: {
@@ -307,6 +311,22 @@ export default {
           this.$refs.dice.src = newUrl
         },
       })
+    },
+
+    async storageLoop() {
+      const response = await fetch(
+        'https://api.better-call.dev/v1/contract/hangzhou2net/' +
+          this.params.contract +
+          '/storage'
+      )
+
+      const obj = await response.json()
+      const cleaned = obj[0].children
+      this.storage = cleaned
+
+      setTimeout(() => {
+        this.storageLoop()
+      }, this.params.stateLoop * 1000)
     },
 
     // Marcel's codes
