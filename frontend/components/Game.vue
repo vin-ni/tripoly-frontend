@@ -4,7 +4,9 @@
       <div class="title">
         <h1>Game</h1>
         <div class="game-triggers">
-          <button><p class="active">Sync</p></button>
+          <button @click="requestPermission()">
+            <p class="active">Sync</p>
+          </button>
           <button><p class="active">Join</p></button>
           <button><p>Leave</p></button>
         </div>
@@ -94,6 +96,7 @@ export default {
   props: {},
   data() {
     return {
+      client: null,
       params: {
         useSampleData: true,
         contract: 'KT1PZNb78PUiDRXmFGXPEyGaiocpk623CkEJ',
@@ -166,6 +169,7 @@ export default {
     }
 
     this.resetData()
+    this.setUpBeaconClient()
   },
   created() {},
   methods: {
@@ -230,6 +234,30 @@ export default {
         },
       })
     },
+
+    // Marcel's codes
+    setUpBeaconClient() {
+      window.beaconSdkDebugEnabled = true
+
+      // eslint-disable-next-line no-undef
+      if (beacon && this.client === null) {
+        // var addr = 'empty'
+        // Initiate DAppClient
+        // eslint-disable-next-line no-undef
+        this.client = new beacon.DAppClient({
+          name: 'Tripoly TzConnect Hackathon', // Name of the DApp,
+          disclaimerText: 'This is an optional <b>disclaimer</b>.',
+        })
+        console.log('created client')
+      } else if (this.client === null) {
+        setTimeout(() => {
+          console.log('waiting for beacon to load')
+          this.setUpBeaconClient()
+        }, 100)
+      }
+    },
+
+    requestPermission() {},
   },
 }
 </script>
