@@ -235,12 +235,17 @@
       }
 
       .ar {
+        .companyimg {
+          width: 100%;
+          height: auto;
+          margin-bottom: $singleSpacing;
+        }
         .qr-code {
-          width: 100px;
+          width: 160px;
 
           img {
-            width: 100px;
-            height: 100px;
+            width: 160px;
+            height: 160px;
           }
 
           p {

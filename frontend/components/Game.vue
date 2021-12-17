@@ -80,6 +80,12 @@
         </div>
         <div class="ar span-two-last">
           <h3>View object in AR</h3>
+          <img
+            ref="companyimg"
+            class="companyimg"
+            src=""
+            alt="company image or logo"
+          />
           <div class="qr-code">
             <img src="@/assets/img/sampleqr.png" alt="" />
             <p>iPhone</p>
