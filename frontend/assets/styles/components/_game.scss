@@ -130,6 +130,29 @@
         margin-bottom: 8px;
       }
     }
+
+    .connected-account {
+      position: fixed;
+      bottom: 10px;
+      left: 0px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 100%;
+      pointer-events: none;
+
+      p {
+        margin: 0;
+        padding: 5px 10px 5px 10px;
+        background-color: $white;
+        color: $textColor;
+        border-radius: 4px;
+        font-weight: 500;
+        font-size: 12px;
+      }
+    }
   }
 
   .field-info {

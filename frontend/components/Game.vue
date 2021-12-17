@@ -44,6 +44,9 @@
         <img src="@/assets/img/1.png" alt="" />
         <p>Dice Placeholder</p>
       </div>
+      <div v-if="gameState.wallet.connected" class="connected-account">
+        <p>Active Account: {{ gameState.wallet.id }}</p>
+      </div>
     </div>
     <div class="field-info">
       <p>Field 17</p>
@@ -97,6 +100,10 @@ export default {
         gamefielddata,
       },
       gameState: {
+        wallet: {
+          connected: false,
+          id: 'Example',
+        },
         player: {
           name: '',
           savedc02: '',
