@@ -3,10 +3,29 @@
     <div class="game-wrapper">
       <div class="title">
         <h1>Game</h1>
-        <div class="gamge-triggers">
-          <button>Sync</button>
-          <button>Join</button>
-          <button>Leave</button>
+        <div class="game-triggers">
+          <button><p class="active">Sync</p></button>
+          <button><p class="active">Join</p></button>
+          <button><p>Leave</p></button>
+        </div>
+      </div>
+      <div class="gaming-field">
+        <div class="gamer-wrapper">
+          <div class="gamer">
+            <h3>Marcel</h3>
+            <p>Current Position: 17</p>
+            <p>Saved CO2 in kilo: 400</p>
+            <p>Last dice roll: 2021-12-14T20:29:29Z</p>
+            <p>Supported Fields: undefined</p>
+          </div>
+        </div>
+        <div class="board-wrapper">
+          <p>sample</p>
+        </div>
+        <div class="other-players-wrapper">
+          <div class="other-players">
+            <h3>Other players</h3>
+          </div>
         </div>
       </div>
     </div>
@@ -52,7 +71,40 @@ export default {
   name: 'GameComp',
   props: {},
   data() {
-    return {}
+    return {
+      sampleData: {
+        player: {
+          name: 'Marcel',
+          savedc02: '200',
+          position: 15,
+          last_dice_roll: '2021-12-14T20:29:29Z',
+          walletID: 'tz1dHDTd42M6s18vwcUyYfBydYpCHKChZ5ot',
+        },
+        otherPlayers: [
+          {
+            name: 'Player 1',
+            savedc02: '200',
+            position: 2,
+            last_dice_roll: '2021-12-14T20:29:29Z',
+            walletID: 'tz1dHDTd42M6s18vwcUyYfBydYpCHKChZ5ot',
+          },
+          {
+            name: 'Player 2',
+            savedc02: '150',
+            position: 12,
+            last_dice_roll: '2021-12-14T20:29:29Z',
+            walletID: 'tz1dHDTd42M6s18vwcUyYfBydYpCHKChZ5ot',
+          },
+          {
+            name: 'Player 3',
+            savedc02: '550',
+            position: 4,
+            last_dice_roll: '2021-12-14T20:29:29Z',
+            walletID: 'tz1dHDTd42M6s18vwcUyYfBydYpCHKChZ5ot',
+          },
+        ],
+      },
+    }
   },
   computed: {},
   mounted() {},

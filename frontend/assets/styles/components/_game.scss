@@ -1,6 +1,72 @@
 .game {
   .game-wrapper {
     padding: 0 $desktopPadding 0 $desktopPadding;
+
+    .title {
+      display: flex;
+      align-items: baseline;
+
+      h1 {
+        margin-right: $doubleSpacing;
+      }
+
+      .game-triggers {
+        button {
+          cursor: pointer;
+          border: 0;
+          background: transparent;
+          p {
+            font-weight: 500;
+            color: $textColor;
+            text-decoration: underline;
+            margin: 0;
+            text-underline-offset: 1.5px;
+            opacity: 0.5;
+
+            &.active {
+              opacity: 1;
+            }
+          }
+
+          &:hover {
+            p {
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+
+    .gaming-field {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+
+      .gamer-wrapper {
+        width: 35%;
+        height: 100%;
+
+        .gamer {
+          padding: 0 $desktopPadding 0 $desktopPadding;
+
+          h3 {
+            margin-bottom: $singleSpacing;
+          }
+          p {
+            margin-bottom: 6px;
+          }
+        }
+      }
+      .board-wrapper {
+        width: 30%;
+        height: 100%;
+      }
+      .other-players-wrapper {
+        width: 35%;
+        height: 100%;
+      }
+    }
   }
 
   .field-info {
