@@ -55,11 +55,7 @@
       </div>
       <div class="dice-wrapper">
         <img src="@/assets/img/1.png" alt="" />
-        <button><p>Roll Dice</p></button>
-        <!-- <select v-model="diceCount">
-          <option v-for="index in 10"  :value="index">{{ index }}</option>
-        </select>
-        <dice-roller ref="diceroller" :count="diceCount" /> -->
+        <button @click="roll()"><p>Roll Dice</p></button>
       </div>
       <div v-if="wallet.connected" class="connected-account">
         <p>
@@ -258,6 +254,10 @@ export default {
           player.style.opacity = 1
         },
       })
+    },
+
+    roll() {
+      console.log('roll')
     },
 
     // Marcel's codes
