@@ -5,10 +5,17 @@
         <h1>Game</h1>
         <div class="game-triggers">
           <button @click="requestPermission()">
-            <p class="active">Sync</p>
+            <p>Sync</p>
           </button>
-          <button><p class="active">Join</p></button>
-          <button><p>Leave</p></button>
+          <button
+            :disabled="!wallet.connected && !gameState.gameJoined"
+            @click="join()"
+          >
+            <p>Join</p>
+          </button>
+          <button :disabled="!gameState.gameJoined" @click="leave()">
+            <p>Leave</p>
+          </button>
         </div>
       </div>
       <div class="gaming-field">
@@ -112,6 +119,7 @@ export default {
         originType: '',
       },
       gameState: {
+        gameJoined: false,
         player: {
           name: '',
           savedc02: '',
@@ -179,7 +187,7 @@ export default {
   created() {},
   methods: {
     useSampleData() {
-      this.gameState.player = this.sampleData.player
+      // this.gameState.player = this.sampleData.player
       this.gameState.otherPlayers = this.sampleData.otherPlayers
     },
 
@@ -277,7 +285,6 @@ export default {
           if (callback) {
             callback(permissions)
           }
-          console.log('uncomment next')
           this.updateActiveAccount()
         })
         .catch((error) => {
@@ -299,6 +306,74 @@ export default {
           this.wallet.connected = false
         }
       })
+    },
+
+    async join() {
+      const { value: name } = await this.$swal.fire({
+        title: "What's your name?",
+        input: 'text',
+        confirmButtonColor: '#2ba5eb',
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'You need to write something!'
+          }
+        },
+      })
+
+      if (name) {
+        this.gameState.player.name = name
+        // this.$swal.fire(`Your IP address is ${name}`)
+
+        this.client
+          .requestOperation({
+            operationDetails: [
+              {
+                // eslint-disable-next-line no-undef
+                kind: beacon.TezosOperationType.TRANSACTION,
+                amount: '0',
+                destination: this.params.contract,
+                parameters: {
+                  entrypoint: 'join',
+                  value: {
+                    string: name, // should be entered via UI
+                  },
+                },
+              },
+            ],
+          })
+          .then((response) => {
+            console.log(response)
+            this.gameState.gameJoined = true
+          })
+          .catch((error) => console.log(error))
+      }
+    },
+
+    leave() {
+      this.client
+        .requestOperation({
+          operationDetails: [
+            {
+              // eslint-disable-next-line no-undef
+              kind: beacon.TezosOperationType.TRANSACTION,
+              amount: '0',
+              destination: this.contract,
+              parameters: {
+                entrypoint: 'leave',
+                value: {
+                  prim: 'Unit',
+                },
+              },
+            },
+          ],
+        })
+        .then((response) => {
+          console.log(response)
+          console.log('left')
+          this.gameState.gameJoined = false
+        })
+        .catch((error) => console.log(error))
     },
   },
 }
