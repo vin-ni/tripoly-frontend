@@ -141,6 +141,13 @@ export default {
       },
     }
   },
+  head: {
+    script: [
+      {
+        src: '/js/walletbeacon.min.js',
+      },
+    ],
+  },
   computed: {},
   mounted() {
     if (this.params.useSampleData) {
