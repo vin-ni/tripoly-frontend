@@ -27,7 +27,7 @@
             <p>Current Position: {{ gameState.player.position }}</p>
             <p>Saved CO2 in kilo: {{ gameState.player.savedc02 }}</p>
             <p>Last dice roll: {{ gameState.player.last_dice_roll }}</p>
-            <button @click="movePlayerToNextField()">
+            <button @click="increasePlayerPosition(1)">
               Next Field Animation
             </button>
           </div>
@@ -224,13 +224,35 @@ export default {
       this.movePlayerToPosition(this.$refs.player, newCoordinates)
     },
 
-    movePlayerToNextField() {
-      console.log('yejh')
+    // movePlayerToNextField() {
+    //   const positions = Object.keys(this.params.gamefielddata.positions).length
+
+    //   let newPosition = this.gameState.player.position + 1
+    //   if (newPosition >= positions) {
+    //     newPosition = newPosition - positions
+    //   }
+    //   this.gameState.player.position = newPosition
+
+    //   // calculate coordinates
+    //   const coordinates = this.params.gamefielddata.positions[newPosition]
+    //   const offset = this.$refs.player.offsetWidth / 2
+    //   const divisor = this.params.gamefielddata.divisor
+    //   const gameSize = this.$refs.boardgame.offsetWidth
+
+    //   const newCoordinates = {
+    //     x: (parseInt(coordinates.x) / divisor) * gameSize - offset,
+    //     y: (parseInt(coordinates.y) / divisor) * gameSize - offset,
+    //   }
+
+    //   this.movePlayerToPosition(this.$refs.player, newCoordinates)
+    // },
+
+    increasePlayerPosition(diceValue) {
       const positions = Object.keys(this.params.gamefielddata.positions).length
 
-      let newPosition = this.gameState.player.position + 1
+      let newPosition = this.gameState.player.position + diceValue
       if (newPosition >= positions) {
-        newPosition = 0
+        newPosition = newPosition - positions
       }
       this.gameState.player.position = newPosition
 
@@ -247,8 +269,6 @@ export default {
 
       this.movePlayerToPosition(this.$refs.player, newCoordinates)
     },
-
-    // increasePlayerPosition(diceValue) {},
 
     movePlayerToPosition(player, position) {
       gsap.to(player, {
