@@ -67,7 +67,7 @@
       </div>
     </div>
     <div class="field-info">
-      <p>Field 17</p>
+      <p>Field {{ gameState.player.position }}</p>
     </div>
     <div class="company-info">
       <div class="project content five-row">
@@ -134,7 +134,7 @@ export default {
         player: {
           name: '',
           savedc02: '',
-          position: '',
+          position: 0,
           last_dice_roll: '',
           walletID: '',
           supportedGameFields: [],
