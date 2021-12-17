@@ -4,7 +4,7 @@
       <div class="title">
         <h1>Game</h1>
         <div class="game-triggers">
-          <button @click="requestPermission()">
+          <button @click="sync()">
             <p>Sync</p>
           </button>
           <button :disabled="!wallet.connected" @click="join()">
@@ -54,8 +54,10 @@
         </div>
       </div>
       <div class="dice-wrapper">
-        <img src="@/assets/img/1.png" alt="" />
-        <button @click="roll()"><p>Roll Dice</p></button>
+        <img ref="dice" src="/1.png" alt="" />
+        <button :disabled="gameState.blockDice" @click="roll()">
+          <p>Roll Dice</p>
+        </button>
       </div>
       <div v-if="wallet.connected" class="connected-account">
         <p>
@@ -113,7 +115,6 @@ export default {
   props: {},
   data() {
     return {
-      diceCount: 6,
       client: null,
       params: {
         useSampleData: true,
@@ -128,6 +129,8 @@ export default {
       },
       gameState: {
         gameJoined: false,
+        blockDice: true,
+        diceValue: 1,
         player: {
           name: '',
           savedc02: '',
@@ -257,7 +260,30 @@ export default {
     },
 
     roll() {
-      console.log('roll')
+      this.gameState.blockDice = true
+
+      const number = Math.floor(Math.random() * 6) + 1
+      const newUrl = `${number}.png`
+
+      this.gameState.player.diceValue = number
+
+      gsap.to(this.$refs.dice, {
+        duration: 2,
+        rotation: '+=720',
+        transformOrigin: 'center center',
+        ease: Power4.easeInOut,
+        onComplete: () => {
+          this.gameState.blockDice = false
+          this.logDice()
+        },
+      })
+
+      gsap.to(this.$refs.dice, {
+        duration: 1,
+        onComplete: () => {
+          this.$refs.dice.src = newUrl
+        },
+      })
     },
 
     // Marcel's codes
@@ -282,7 +308,8 @@ export default {
       }
     },
 
-    requestPermission(callback) {
+    // used to be RequestPermisson
+    sync(callback) {
       this.client
         .requestPermissions({
           network: {
@@ -307,6 +334,7 @@ export default {
     updateActiveAccount() {
       this.client.getActiveAccount().then((activeAccount) => {
         if (activeAccount) {
+          this.gameState.blockDice = false
           this.wallet.address = activeAccount.address
           this.wallet.networkType = activeAccount.network.type
           this.wallet.originType = activeAccount.origin.type
@@ -387,33 +415,27 @@ export default {
         .catch((error) => console.log(error))
     },
 
-    throwDice() {
-      const number = Math.floor(Math.random() * 6) + 1
-      console.log(number)
-      // $('#dice_number').append('<p>you rolled: ' + rnd_nr + '</p>')
-      //   this.client
-      //     .requestOperation({
-      //       operationDetails: [
-      //         {
-      //           // eslint-disable-next-line no-undef
-      //           kind: beacon.TezosOperationType.TRANSACTION,
-      //           amount: '0',
-      //           destination: this.contract,
-      //           parameters: {
-      //             entrypoint: 'dice',
-      //             value: {
-      //               int: '' + number + '',
-      //             },
-      //           },
-      //         },
-      //       ],
-      //     })
-      //     .then((response) => {
-      //       console.log(response)
-
-      //     })
-      //     .catch((error) => console.log(error))
-      // },
+    logDice() {
+      console.log(this.gameState.player.diceValue)
+      this.client
+        .requestOperation({
+          operationDetails: [
+            {
+              // eslint-disable-next-line no-undef
+              kind: beacon.TezosOperationType.TRANSACTION,
+              amount: '0',
+              destination: this.params.contract,
+              parameters: {
+                entrypoint: 'dice',
+                value: {
+                  int: '' + this.gameState.player.diceValue + '',
+                },
+              },
+            },
+          ],
+        })
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error))
     },
 
     clock() {
