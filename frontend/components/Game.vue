@@ -30,6 +30,7 @@
             <button @click="increasePlayerPosition(1)">
               Walk to next field
             </button>
+            <button @click="loadNFT()">Load NFT</button>
           </div>
         </div>
         <div class="board-wrapper">
@@ -72,14 +73,9 @@
     <div class="company-info">
       <div class="project content five-row">
         <div class="company span-two-first">
-          <h3>Title Company</h3>
+          <h3>{{ nft.name }}</h3>
           <p>
-            For this game, named Tripoly, we forget the bank, the loans,and the
-            race to become rich #capitalism. We revisit theMonopoly's mechanism,
-            we take inspiration from it to makethe project funny and
-            interactive. Some of you may think about this other game :
-            Anti-Monopoly. Let's say that Tripoly is the NFT's sibling of
-            theAnti.
+            {{ nft.description }}
           </p>
         </div>
         <div class="ar span-two-last">
@@ -117,18 +113,24 @@ export default {
   props: {},
   data() {
     return {
+      storage: null,
       client: null,
       params: {
         useSampleData: true,
         contract: 'KT19hqf8T654T3sFxRJpsULTtimqyGYK7Lhk',
         gamefielddata,
-        stateLoop: 10, // in seconds
+        stateLoop: 30, // in seconds
       },
       wallet: {
         connected: false,
         address: '',
         networkType: '',
         originType: '',
+      },
+      nft: {
+        name: '',
+        description: '',
+        arObj: {},
       },
       gameState: {
         gameJoined: false,
@@ -324,6 +326,8 @@ export default {
       const cleaned = obj[0].children
       this.storage = cleaned
 
+      console.log('requested state')
+
       setTimeout(() => {
         this.storageLoop()
       }, this.params.stateLoop * 1000)
@@ -508,6 +512,38 @@ export default {
           console.log(response)
         })
         .catch((error) => console.log(error))
+    },
+
+    async loadNFT() {
+      if (this.storage) {
+        const nftData = this.storage[0].children[this.gameState.player.position]
+
+        const nftObj = {
+          name: nftData.name,
+        }
+
+        nftData.children.forEach((element) => {
+          nftObj[element.name] = element.value
+        })
+        console.log(nftObj)
+
+        let nftMetaData = await fetch(
+          'https://api.better-call.dev/v1/contract/hangzhou2net/' +
+            nftObj.token_address +
+            '/tokens'
+        )
+
+        nftMetaData = await nftMetaData.json()
+        const filteredNftMetaData = nftMetaData[nftMetaData.length - 1]
+
+        console.log(filteredNftMetaData)
+
+        this.nft.name = filteredNftMetaData.name
+        this.nft.description = filteredNftMetaData.description
+        this.nft.arObj = filteredNftMetaData.extras['@@empty']
+
+        // get address
+      }
     },
   },
 }
