@@ -30,9 +30,6 @@
             <button @click="movePlayerToNextField()">
               Next Field Animation
             </button>
-            <button @click="movePlayerToNextField()">
-              Next Field Animation
-            </button>
           </div>
         </div>
         <div class="board-wrapper">
