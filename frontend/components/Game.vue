@@ -516,14 +516,14 @@ export default {
 
     async loadNFT() {
       if (this.storage) {
-        const nftData =
+        const nftGlobalData =
           this.storage[0]?.children[this.gameState.player.position]
 
         const nftObj = {
-          name: nftData.name,
+          name: nftGlobalData.name,
         }
 
-        nftData.children.forEach((element) => {
+        nftGlobalData.children.forEach((element) => {
           nftObj[element.name] = element.value
         })
         console.log(nftObj)
@@ -533,7 +533,6 @@ export default {
             nftObj.token_address +
             '/tokens'
         )
-
         nftMetaData = await nftMetaData.json()
         const filteredNftMetaData = nftMetaData[nftMetaData.length - 1]
 
@@ -541,9 +540,28 @@ export default {
 
         this.nft.name = filteredNftMetaData?.name
         this.nft.description = filteredNftMetaData?.description
-        this.nft.arObj = filteredNftMetaData?.extras
+        // this.nft.arObj = filteredNftMetaData?.extras
 
-        const arUrl = this.nft.arObj['@@empty'].replace('ipfs://', '')
+        const arUrl = filteredNftMetaData?.extras['@@empty'].replace(
+          'ipfs://',
+          ''
+        )
+
+        let nftFileData = await fetch(`https://infura-ipfs.io/ipfs/${arUrl}/`)
+        nftFileData = await nftFileData.json()
+
+        console.log(nftFileData)
+        const artifactUri = nftFileData.artifactUri.replace('ipfs://', '')
+
+        console.log(artifactUri)
+
+        let nftSpecificData = await fetch(
+          `https://infura-ipfs.io/ipfs/${artifactUri}/`
+        )
+        nftSpecificData = await nftSpecificData.json()
+        console.log(nftSpecificData)
+
+        this.nft.arObj = nftSpecificData
       }
     },
   },
