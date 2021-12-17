@@ -7,15 +7,16 @@
           <button @click="requestPermission()">
             <p>Sync</p>
           </button>
-          <button
-            :disabled="!wallet.connected && !gameState.gameJoined"
-            @click="join()"
-          >
+          <button :disabled="!wallet.connected" @click="join()">
             <p>Join</p>
           </button>
-          <button @click="leave()">
+          <button :disabled="!wallet.connected" @click="leave()">
             <!-- <button :disabled="!gameState.gameJoined" @click="leave()"> -->
             <p>Leave</p>
+          </button>
+          <button @click="clock()">
+            <!-- <button :disabled="!gameState.gameJoined" @click="leave()"> -->
+            <p>Clock</p>
           </button>
         </div>
       </div>
@@ -26,7 +27,9 @@
             <p>Current Position: {{ gameState.player.position }}</p>
             <p>Saved CO2 in kilo: {{ gameState.player.savedc02 }}</p>
             <p>Last dice roll: {{ gameState.player.last_dice_roll }}</p>
-            <button @click="movePlayerToNextField()">Next Field</button>
+            <button @click="movePlayerToNextField()">
+              Next Field Animation
+            </button>
           </div>
         </div>
         <div class="board-wrapper">
@@ -52,7 +55,11 @@
       </div>
       <div class="dice-wrapper">
         <img src="@/assets/img/1.png" alt="" />
-        <p>Dice Placeholder</p>
+        <button><p>Roll Dice</p></button>
+        <!-- <select v-model="diceCount">
+          <option v-for="index in 10"  :value="index">{{ index }}</option>
+        </select>
+        <dice-roller ref="diceroller" :count="diceCount" /> -->
       </div>
       <div v-if="wallet.connected" class="connected-account">
         <p>
@@ -100,13 +107,17 @@
 
 <script>
 import { gsap, Power4 } from 'gsap'
+import { DiceRoller } from 'vue-dice-roller'
 import gamefielddata from '@/assets/js/gamefielddata.json'
 
 export default {
   name: 'GameComp',
+  // eslint-disable-next-line vue/no-unused-components
+  components: { DiceRoller },
   props: {},
   data() {
     return {
+      diceCount: 6,
       client: null,
       params: {
         useSampleData: true,
@@ -359,7 +370,7 @@ export default {
               // eslint-disable-next-line no-undef
               kind: beacon.TezosOperationType.TRANSACTION,
               amount: '0',
-              destination: this.contract,
+              destination: this.params.contract,
               parameters: {
                 entrypoint: 'leave',
                 value: {
@@ -403,6 +414,10 @@ export default {
       //     })
       //     .catch((error) => console.log(error))
       // },
+    },
+
+    clock() {
+      console.log('clock')
     },
   },
 }

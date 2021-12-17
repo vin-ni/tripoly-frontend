@@ -8713,6 +8713,11 @@ vue-client-only@^2.0.0:
   resolved "https://registry.yarnpkg.com/vue-client-only/-/vue-client-only-2.1.0.tgz#1a67a47b8ecacfa86d75830173fffee3bf8a4ee3"
   integrity sha512-vKl1skEKn8EK9f8P2ZzhRnuaRHLHrlt1sbRmazlvsx6EiC3A8oWF8YCBrMJzoN+W3OnElwIGbVjsx6/xelY1AA==
 
+vue-dice-roller@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/vue-dice-roller/-/vue-dice-roller-0.0.2.tgz#880537dc75a7eb8422035792c34b9c9544713eac"
+  integrity sha1-iAU33HWn64QiA1eSw0uclURxPqw=
+
 vue-eslint-parser@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-8.0.1.tgz#25e08b20a414551531f3e19f999902e1ecf45f13"
