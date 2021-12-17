@@ -46,8 +46,11 @@
         <img src="@/assets/img/1.png" alt="" />
         <p>Dice Placeholder</p>
       </div>
-      <div v-if="gameState.wallet.connected" class="connected-account">
-        <p>Active Account: {{ gameState.wallet.id }}</p>
+      <div v-if="wallet.connected" class="connected-account">
+        <p>
+          Active Account: {{ wallet.address }} {{ wallet.networkType }}
+          {{ wallet.originType }}
+        </p>
       </div>
     </div>
     <div class="field-info">
@@ -102,11 +105,13 @@ export default {
         contract: 'KT1PZNb78PUiDRXmFGXPEyGaiocpk623CkEJ',
         gamefielddata,
       },
+      wallet: {
+        connected: false,
+        address: '',
+        networkType: '',
+        originType: '',
+      },
       gameState: {
-        wallet: {
-          connected: false,
-          id: 'Example',
-        },
         player: {
           name: '',
           savedc02: '',
@@ -257,7 +262,44 @@ export default {
       }
     },
 
-    requestPermission() {},
+    requestPermission(callback) {
+      this.client
+        .requestPermissions({
+          network: {
+            // eslint-disable-next-line no-undef
+            type: beacon.NetworkType.HANGZHOUNET,
+            name: 'hangzhounet',
+            rpcUrl: 'https://rpc.hangzhounet.teztnets.xyz',
+          },
+        })
+        .then((permissions) => {
+          console.log('permissions', permissions)
+          if (callback) {
+            callback(permissions)
+          }
+          console.log('uncomment next')
+          this.updateActiveAccount()
+        })
+        .catch((error) => {
+          console.log('error during permission request', error)
+        })
+    },
+
+    updateActiveAccount() {
+      this.client.getActiveAccount().then((activeAccount) => {
+        if (activeAccount) {
+          this.wallet.address = activeAccount.address
+          this.wallet.networkType = activeAccount.network.type
+          this.wallet.originType = activeAccount.origin.type
+          this.wallet.connected = true
+        } else {
+          this.wallet.address = ''
+          this.wallet.networkType = ''
+          this.wallet.originType = ''
+          this.wallet.connected = false
+        }
+      })
+    },
   },
 }
 </script>
