@@ -28,7 +28,7 @@
             <p>Saved CO2 in kilo: {{ gameState.player.savedc02 }}</p>
             <p>Last dice roll: {{ gameState.player.last_dice_roll }}</p>
             <button @click="increasePlayerPosition(1)">
-              Next Field Animation
+              Walk to next field
             </button>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default {
       client: null,
       params: {
         useSampleData: true,
-        contract: 'KT1PZNb78PUiDRXmFGXPEyGaiocpk623CkEJ',
+        contract: 'KT19hqf8T654T3sFxRJpsULTtimqyGYK7Lhk',
         gamefielddata,
       },
       wallet: {
