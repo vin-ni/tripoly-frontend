@@ -535,9 +535,9 @@ export default {
           ],
         })
         .then((response) => {
-          this.loadNFT()
           // send player to new position
           this.increasePlayerPosition(this.gameState.player.diceValue)
+          this.loadNFT()
           console.log(response)
         })
         .catch((error) => {
