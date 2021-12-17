@@ -444,25 +444,25 @@ export default {
       // send player to new position
       this.increasePlayerPosition(this.gameState.player.diceValue)
 
-      // this.client
-      //   .requestOperation({
-      //     operationDetails: [
-      //       {
-      //         // eslint-disable-next-line no-undef
-      //         kind: beacon.TezosOperationType.TRANSACTION,
-      //         amount: '0',
-      //         destination: this.params.contract,
-      //         parameters: {
-      //           entrypoint: 'dice',
-      //           value: {
-      //             int: '' + this.gameState.player.diceValue + '',
-      //           },
-      //         },
-      //       },
-      //     ],
-      //   })
-      //   .then((response) => console.log(response))
-      //   .catch((error) => console.log(error))
+      this.client
+        .requestOperation({
+          operationDetails: [
+            {
+              // eslint-disable-next-line no-undef
+              kind: beacon.TezosOperationType.TRANSACTION,
+              amount: '0',
+              destination: this.params.contract,
+              parameters: {
+                entrypoint: 'dice',
+                value: {
+                  int: '' + this.gameState.player.diceValue + '',
+                },
+              },
+            },
+          ],
+        })
+        .then((response) => console.log(response))
+        .catch((error) => console.log(error))
     },
 
     clock() {
