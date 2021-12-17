@@ -105,7 +105,7 @@
         </h3>
       </div>
       <div class="content">
-        <button>Support</button>
+        <button @click="support">Support</button>
       </div>
     </div>
   </section>
@@ -130,6 +130,7 @@ export default {
         contract: 'KT19hqf8T654T3sFxRJpsULTtimqyGYK7Lhk',
         gamefielddata,
         stateLoop: 30, // in seconds
+        nftLoaded: false,
       },
       wallet: {
         connected: false,
@@ -147,6 +148,7 @@ export default {
       gameState: {
         gameJoined: false,
         blockDice: true,
+        dicePreviousValue: 0,
         diceValue: 0,
         player: {
           name: '',
@@ -268,7 +270,8 @@ export default {
     increasePlayerPosition(diceValue) {
       const positions = Object.keys(this.params.gamefielddata.positions).length
 
-      let newPosition = this.gameState.player.position + diceValue
+      let newPosition =
+        parseInt(this.gameState.player.position) + parseInt(diceValue)
       if (newPosition >= positions) {
         newPosition = newPosition - positions
       }
@@ -306,6 +309,9 @@ export default {
       const number = Math.floor(Math.random() * 6) + 1
       const newUrl = `${number}.png`
 
+      this.gameState.player.dicePreviousValue = parseInt(
+        this.gameState.player.diceValue
+      )
       this.gameState.player.diceValue = number
 
       gsap.to(this.$refs.dice, {
@@ -343,6 +349,38 @@ export default {
       setTimeout(() => {
         this.storageLoop()
       }, this.params.stateLoop * 1000)
+    },
+
+    putPlayerOnCorrectPosition() {
+      const allPlayers = this.storage[1].children
+
+      const myPlayerData = {}
+
+      for (let i = 0; i < allPlayers.length; i++) {
+        const player = allPlayers[i]
+
+        if (player.name === this.wallet.address) {
+          player.children.forEach((element) => {
+            myPlayerData[element.name] = element.value
+          })
+        }
+      }
+
+      if (myPlayerData.name) {
+        this.gameState.player.name = myPlayerData.name
+        this.gameState.player.last_dice_roll = myPlayerData.last_dice_roll
+        this.gameState.player.savedc02 = myPlayerData.saved_co2_kilos
+        this.gameState.player.position = myPlayerData.position
+
+        this.movePlayerToCurrentField()
+        this.loadNFT()
+      } else {
+        console.log('no previous data')
+      }
+
+      // lets update the frontend
+
+      console.log(myPlayerData)
     },
 
     // Marcel's codes
@@ -398,6 +436,8 @@ export default {
           this.wallet.networkType = activeAccount.network.type
           this.wallet.originType = activeAccount.origin.type
           this.wallet.connected = true
+
+          this.putPlayerOnCorrectPosition()
         } else {
           this.wallet.address = ''
           this.wallet.networkType = ''
@@ -477,9 +517,6 @@ export default {
     logDice() {
       console.log(this.gameState.player.diceValue)
 
-      // send player to new position
-      this.increasePlayerPosition(this.gameState.player.diceValue)
-
       this.client
         .requestOperation({
           operationDetails: [
@@ -497,8 +534,17 @@ export default {
             },
           ],
         })
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error))
+        .then((response) => {
+          this.loadNFT()
+          // send player to new position
+          this.increasePlayerPosition(this.gameState.player.diceValue)
+          console.log(response)
+        })
+        .catch((error) => {
+          this.gameState.player.diceValue =
+            this.gameState.player.dicePreviousValue
+          console.log(error)
+        })
     },
 
     clock() {
@@ -526,7 +572,48 @@ export default {
         .catch((error) => console.log(error))
     },
 
+    support() {
+      // get data
+      // console.log(this.storage)
+      if (this.storage) {
+        const nftGlobalData =
+          this.storage[0]?.children[this.gameState.player.position]
+
+        const nftObj = {
+          name: nftGlobalData.name,
+        }
+
+        nftGlobalData.children.forEach((element) => {
+          nftObj[element.name] = element.value
+        })
+        // console.log(nftObj)
+
+        const tokenPrice = nftObj.token_price
+
+        this.client
+          .requestOperation({
+            operationDetails: [
+              {
+                // eslint-disable-next-line no-undef
+                kind: beacon.TezosOperationType.TRANSACTION,
+                amount: tokenPrice,
+                destination: this.params.contract,
+                parameters: {
+                  entrypoint: 'support',
+                  value: {
+                    prim: 'Unit',
+                  },
+                },
+              },
+            ],
+          })
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error))
+      }
+    },
+
     async loadNFT() {
+      console.log('load nft')
       if (this.storage) {
         const nftGlobalData =
           this.storage[0]?.children[this.gameState.player.position]
@@ -583,9 +670,7 @@ export default {
         console.log(nftImage)
 
         // get qr code url
-
         this.nft.qrUrl = `https://infura-ipfs.io/ipfs/${nftSpecificData.Hash}/${nftSpecificData.Name}`
-
         console.log(this.nft.qrUrl)
       }
     },
