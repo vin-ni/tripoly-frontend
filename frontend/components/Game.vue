@@ -13,7 +13,8 @@
           >
             <p>Join</p>
           </button>
-          <button :disabled="!gameState.gameJoined" @click="leave()">
+          <button @click="leave()">
+            <!-- <button :disabled="!gameState.gameJoined" @click="leave()"> -->
             <p>Leave</p>
           </button>
         </div>
@@ -370,10 +371,38 @@ export default {
         })
         .then((response) => {
           console.log(response)
-          console.log('left')
           this.gameState.gameJoined = false
         })
         .catch((error) => console.log(error))
+    },
+
+    throwDice() {
+      const number = Math.floor(Math.random() * 6) + 1
+      console.log(number)
+      // $('#dice_number').append('<p>you rolled: ' + rnd_nr + '</p>')
+      //   this.client
+      //     .requestOperation({
+      //       operationDetails: [
+      //         {
+      //           // eslint-disable-next-line no-undef
+      //           kind: beacon.TezosOperationType.TRANSACTION,
+      //           amount: '0',
+      //           destination: this.contract,
+      //           parameters: {
+      //             entrypoint: 'dice',
+      //             value: {
+      //               int: '' + number + '',
+      //             },
+      //           },
+      //         },
+      //       ],
+      //     })
+      //     .then((response) => {
+      //       console.log(response)
+
+      //     })
+      //     .catch((error) => console.log(error))
+      // },
     },
   },
 }
