@@ -16,10 +16,20 @@
             <p>Current Position: {{ gameState.player.position }}</p>
             <p>Saved CO2 in kilo: {{ gameState.player.savedc02 }}</p>
             <p>Last dice roll: {{ gameState.player.last_dice_roll }}</p>
+            <button @click="playerNextField()">Next Field</button>
           </div>
         </div>
         <div class="board-wrapper">
-          <p>sample</p>
+          <div class="board-outer">
+            <img
+              ref="boardgame"
+              src="@/assets/img/gamefield.svg"
+              alt="game field"
+            />
+            <div class="board-players">
+              <div ref="player" class="player"></div>
+            </div>
+          </div>
         </div>
         <div class="other-players-wrapper">
           <div class="other-players">
@@ -76,6 +86,7 @@ export default {
     return {
       params: {
         useSampleData: true,
+        contract: 'KT1PZNb78PUiDRXmFGXPEyGaiocpk623CkEJ',
       },
       gameState: {
         player: {
@@ -137,6 +148,10 @@ export default {
     useSampleData() {
       this.gameState.player = this.sampleData.player
       this.gameState.otherPlayers = this.sampleData.otherPlayers
+    },
+
+    playerNextField() {
+      console.log('yeah')
     },
   },
 }

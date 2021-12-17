@@ -61,8 +61,44 @@
         }
       }
       .board-wrapper {
+        position: relative;
         width: 30%;
         height: 100%;
+
+        .board-outer {
+          height: 0px;
+          padding-bottom: 100%;
+          img {
+            // background-color: orange;
+            width: 100%;
+            height: auto;
+            transform: scale(1.4);
+          }
+
+          .board-players {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: scale(1.4);
+            background-color: rgba($color: #ff0000, $alpha: 0.1);
+
+            .player {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 25px;
+              height: 25px;
+              border-radius: 50px;
+              background-color: $playerColor;
+            }
+
+            .otherPlayer {
+              background-color: $otherPlayerColor;
+            }
+          }
+        }
       }
       .other-players-wrapper {
         width: 35%;
