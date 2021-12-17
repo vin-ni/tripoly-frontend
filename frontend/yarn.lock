@@ -7218,6 +7218,11 @@ q@^1.1.2:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
+qrcode.vue@1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/qrcode.vue/-/qrcode.vue-1.6.3.tgz#6e3655ff5ed7d1a57ca8ee3df953c7085a39611e"
+  integrity sha512-zQqA2L3oNuH7+MN0qiA4UW3MCTKutLQOuq794u0TcBvvWJonmrMf+7gA5UDAYxdMqooEPupptUhEtmc0843tvg==
+
 qs@^6.9.4:
   version "6.10.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.2.tgz#c1431bea37fc5b24c5bdbafa20f16bdf2a4b9ffe"

@@ -87,7 +87,13 @@
             alt="company image or logo"
           />
           <div class="qr-code">
-            <img src="@/assets/img/sampleqr.png" alt="" />
+            <!-- <img src="@/assets/img/sampleqr.png" alt="" /> -->
+            <qrcode-vue
+              :value="nft.qrUrl"
+              size="160"
+              level="H"
+              foreground="#2ba5eb"
+            />
             <p>iPhone</p>
           </div>
         </div>
@@ -109,13 +115,13 @@
 
 <script>
 import { gsap, Power4 } from 'gsap'
-import { DiceRoller } from 'vue-dice-roller'
+import QrcodeVue from 'qrcode.vue'
 import gamefielddata from '@/assets/js/gamefielddata.json'
 
 export default {
   name: 'GameComp',
   // eslint-disable-next-line vue/no-unused-components
-  components: { DiceRoller },
+  components: { QrcodeVue },
   props: {},
   data() {
     return {
@@ -138,6 +144,7 @@ export default {
         description: '',
         arObj: {},
         projectImgUrl: '',
+        qrUrl: '',
       },
       gameState: {
         gameJoined: false,
@@ -579,8 +586,9 @@ export default {
 
         // get qr code url
 
-        const qrUrl = `https://infura-ipfs.io/ipfs/${nftSpecificData.Hash}/${nftSpecificData.Name}`
-        console.log(qrUrl)
+        this.nft.qrUrl = `https://infura-ipfs.io/ipfs/${nftSpecificData.Hash}/${nftSpecificData.Name}`
+
+        console.log(this.nft.qrUrl)
       }
     },
   },
