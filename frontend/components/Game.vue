@@ -30,6 +30,9 @@
             <button @click="movePlayerToNextField()">
               Next Field Animation
             </button>
+            <button @click="movePlayerToNextField()">
+              Next Field Animation
+            </button>
           </div>
         </div>
         <div class="board-wrapper">
@@ -130,7 +133,7 @@ export default {
       gameState: {
         gameJoined: false,
         blockDice: true,
-        diceValue: 1,
+        diceValue: 0,
         player: {
           name: '',
           savedc02: '',
@@ -203,7 +206,7 @@ export default {
     },
 
     resetData() {
-      this.gameState.player.position = 1
+      this.gameState.player.position = 0
       this.movePlayerToCurrentField()
     },
 
@@ -225,11 +228,12 @@ export default {
     },
 
     movePlayerToNextField() {
+      console.log('yejh')
       const positions = Object.keys(this.params.gamefielddata.positions).length
 
       let newPosition = this.gameState.player.position + 1
-      if (newPosition > positions) {
-        newPosition = 1
+      if (newPosition >= positions) {
+        newPosition = 0
       }
       this.gameState.player.position = newPosition
 
@@ -246,6 +250,8 @@ export default {
 
       this.movePlayerToPosition(this.$refs.player, newCoordinates)
     },
+
+    // increasePlayerPosition(diceValue) {},
 
     movePlayerToPosition(player, position) {
       gsap.to(player, {
@@ -417,25 +423,29 @@ export default {
 
     logDice() {
       console.log(this.gameState.player.diceValue)
-      this.client
-        .requestOperation({
-          operationDetails: [
-            {
-              // eslint-disable-next-line no-undef
-              kind: beacon.TezosOperationType.TRANSACTION,
-              amount: '0',
-              destination: this.params.contract,
-              parameters: {
-                entrypoint: 'dice',
-                value: {
-                  int: '' + this.gameState.player.diceValue + '',
-                },
-              },
-            },
-          ],
-        })
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error))
+
+      // send player to new position
+      this.increasePlayerPosition(this.gameState.player.diceValue)
+
+      // this.client
+      //   .requestOperation({
+      //     operationDetails: [
+      //       {
+      //         // eslint-disable-next-line no-undef
+      //         kind: beacon.TezosOperationType.TRANSACTION,
+      //         amount: '0',
+      //         destination: this.params.contract,
+      //         parameters: {
+      //           entrypoint: 'dice',
+      //           value: {
+      //             int: '' + this.gameState.player.diceValue + '',
+      //           },
+      //         },
+      //       },
+      //     ],
+      //   })
+      //   .then((response) => console.log(response))
+      //   .catch((error) => console.log(error))
     },
 
     clock() {
