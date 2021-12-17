@@ -72,6 +72,16 @@ export default {
   props: {},
   data() {
     return {
+      gameState: {
+        player: {
+          name: '',
+          savedc02: '',
+          position: '',
+          last_dice_roll: '',
+          walletID: '',
+        },
+        otherPlayers: [],
+      },
       sampleData: {
         player: {
           name: 'Marcel',
