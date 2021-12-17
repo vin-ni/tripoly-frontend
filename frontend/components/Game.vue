@@ -516,7 +516,8 @@ export default {
 
     async loadNFT() {
       if (this.storage) {
-        const nftData = this.storage[0].children[this.gameState.player.position]
+        const nftData =
+          this.storage[0]?.children[this.gameState.player.position]
 
         const nftObj = {
           name: nftData.name,
@@ -538,11 +539,11 @@ export default {
 
         console.log(filteredNftMetaData)
 
-        this.nft.name = filteredNftMetaData.name
-        this.nft.description = filteredNftMetaData.description
-        this.nft.arObj = filteredNftMetaData.extras['@@empty']
+        this.nft.name = filteredNftMetaData?.name
+        this.nft.description = filteredNftMetaData?.description
+        this.nft.arObj = filteredNftMetaData?.extras
 
-        // get address
+        const arUrl = this.nft.arObj['@@empty'].replace('ipfs://', '')
       }
     },
   },
