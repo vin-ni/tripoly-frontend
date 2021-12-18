@@ -373,7 +373,7 @@ export default {
       }, this.params.stateLoop * 1000)
     },
 
-    putPlayerOnCorrectPosition() {
+    putMainPlayerOnCorrectPosition() {
       const allPlayers = this.storage[1].children
 
       const myPlayerData = {}
@@ -501,7 +501,11 @@ export default {
           // add supported fields later
         }
 
-        currentPlayers.push(playerFronendObj)
+        const ownWalletId = this.wallet.address
+
+        if (ownWalletId !== playerFronendObj.walletID) {
+          currentPlayers.push(playerFronendObj)
+        }
       })
 
       this.gameState.otherPlayers = currentPlayers
@@ -574,7 +578,9 @@ export default {
           this.wallet.connected = true
           this.gameState.playerDataExistent = true
 
-          this.putPlayerOnCorrectPosition()
+          this.putMainPlayerOnCorrectPosition()
+          this.updateAllPlayerData()
+          this.redrawPlayerData()
         } else {
           console.log('passed passive account')
           this.wallet.address = ''
