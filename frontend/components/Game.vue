@@ -149,7 +149,7 @@ export default {
       storage: null,
       client: null,
       params: {
-        showDebugButtons: true,
+        showDebugButtons: false,
         useSampleData: true,
         contract: 'KT19hqf8T654T3sFxRJpsULTtimqyGYK7Lhk',
         gamefielddata,
