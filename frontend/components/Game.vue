@@ -67,45 +67,50 @@
         </p>
       </div>
     </div>
-    <div class="field-info">
+    <div v-if="params.firstNftLoaded" class="field-info">
       <p>Field {{ gameState.player.position }}</p>
     </div>
-    <div class="company-info">
-      <div class="project content five-row">
-        <div class="company span-two-first">
-          <h3>{{ nft.name }}</h3>
-          <p>
-            {{ nft.description }}
-          </p>
-        </div>
-        <div class="ar span-two-last">
-          <h3>View object in AR</h3>
-          <img
-            ref="companyimg"
-            class="companyimg"
-            :src="nft.projectImgUrl"
-            alt="company image or logo"
-          />
-          <div class="qr-code">
-            <!-- <img src="@/assets/img/sampleqr.png" alt="" /> -->
-            <qrcode-vue
-              :value="nft.qrUrl"
-              size="160"
-              level="H"
-              foreground="#2ba5eb"
+    <div v-if="params.firstNftLoaded" class="company-info">
+      <div v-if="params.nftLoaded">
+        <div class="project content five-row">
+          <div class="company span-two-first">
+            <h3>{{ nft.name }}</h3>
+            <p>
+              {{ nft.description }}
+            </p>
+          </div>
+          <div class="ar span-two-last">
+            <h3>View object in AR</h3>
+            <img
+              ref="companyimg"
+              class="companyimg"
+              :src="nft.projectImgUrl"
+              alt="company image or logo"
             />
-            <p>iPhone</p>
+            <div class="qr-code">
+              <!-- <img src="@/assets/img/sampleqr.png" alt="" /> -->
+              <qrcode-vue
+                :value="nft.qrUrl"
+                size="160"
+                level="H"
+                foreground="#2ba5eb"
+              />
+              <p>iPhone</p>
+            </div>
           </div>
         </div>
+        <div class="content cta-text five-row">
+          <h3 class="span-four">
+            If you like the project and wish to contribute, please support it by
+            buying the token.
+          </h3>
+        </div>
+        <div class="content">
+          <button @click="support">Support</button>
+        </div>
       </div>
-      <div class="content cta-text five-row">
-        <h3 class="span-four">
-          If you like the project and wish to contribute, please support it by
-          buying the token.
-        </h3>
-      </div>
-      <div class="content">
-        <button @click="support">Support</button>
+      <div v-if="!params.nftLoaded" class="loading-placeholder">
+        <p>loading info <span>.</span><span>.</span><span>.</span></p>
       </div>
     </div>
   </section>
@@ -131,6 +136,7 @@ export default {
         gamefielddata,
         stateLoop: 30, // in seconds
         nftLoaded: false,
+        firstNftLoaded: false,
       },
       wallet: {
         connected: false,
@@ -614,6 +620,8 @@ export default {
 
     async loadNFT() {
       console.log('load nft')
+      this.params.firstNftLoaded = true
+      this.params.nftLoaded = false
       if (this.storage) {
         const nftGlobalData =
           this.storage[0]?.children[this.gameState.player.position]
@@ -672,6 +680,7 @@ export default {
         // get qr code url
         this.nft.qrUrl = `https://infura-ipfs.io/ipfs/${nftSpecificData.Hash}/${nftSpecificData.Name}`
         console.log(this.nft.qrUrl)
+        this.params.nftLoaded = true
       }
     },
   },
