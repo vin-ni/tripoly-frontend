@@ -649,10 +649,8 @@ export default {
         // check if still available and adapt interface
         const currentStock = parseInt(nftObj.current_stock)
         if (currentStock === 0) {
-          console.log('BOUUUUUGHT')
           this.nft.alreadyBought = true
         } else {
-          console.log('NOT BOUGUUGUGUGHT')
           this.nft.alreadyBought = false
         }
 
