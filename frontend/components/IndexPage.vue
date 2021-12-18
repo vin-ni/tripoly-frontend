@@ -48,8 +48,14 @@
             </p>
             <p>
               Keep playing and going over the start, players are rewarded by two bounties : 
+              <ul>
+              <li>
               Tezos (1 tz) 
+              </li>
+              <li>
               CO2 saved balance
+              </li>
+              </ul>
             </p>
             <p>
               NFTs : 
