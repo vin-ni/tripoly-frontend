@@ -61,7 +61,7 @@
           <p>Roll Dice</p>
         </button>
       </div>
-      <div v-if="storage" class="connected-account">
+      <div v-if="wallet.connected" class="connected-account">
         <p>
           Active Account: {{ wallet.address }} {{ wallet.networkType }}
           {{ wallet.originType }}
@@ -101,12 +101,15 @@
           </div>
         </div>
         <div class="content cta-text five-row">
-          <h3 class="span-four">
+          <h3 v-if="!nft.alreadyBought" class="span-four">
             If you like the project and wish to contribute, please support it by
             buying the token.
           </h3>
+          <h3 v-if="nft.alreadyBought" class="span-four">
+            This nft is already sold and owned by {{ nft.buyer }}.
+          </h3>
         </div>
-        <div class="content">
+        <div v-if="!nft.alreadyBought" class="content">
           <button @click="support">Support</button>
         </div>
       </div>
@@ -151,6 +154,8 @@ export default {
         arObj: {},
         projectImgUrl: '',
         qrUrl: '',
+        alreadyBought: false,
+        buyer: 'xyz',
       },
       gameState: {
         gameJoined: false,
