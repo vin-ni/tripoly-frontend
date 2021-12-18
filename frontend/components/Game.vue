@@ -20,8 +20,10 @@
           </button>
         </div>
       </div>
-      <button @click="increasePlayerPosition(1)">Walk to next field</button>
-      <button @click="loadNFT()">Load NFT</button>
+      <div v-if="params.showDebugButtons">
+        <button @click="increasePlayerPosition(1)">Walk to next field</button>
+        <button @click="loadNFT()">Load NFT</button>
+      </div>
       <div class="gaming-field">
         <div class="gamer-wrapper">
           <div
@@ -47,7 +49,7 @@
           </div>
         </div>
         <div class="other-players-wrapper">
-          <div v-if="wallet.connected" class="other-players">
+          <div v-if="storage" class="other-players">
             <h3>Other players</h3>
             <div v-for="(player, index) in gameState.otherPlayers" :key="index">
               <OtherPlayer :info="player" />
@@ -136,6 +138,7 @@ export default {
       storage: null,
       client: null,
       params: {
+        showDebugButtons: true,
         useSampleData: true,
         contract: 'KT19hqf8T654T3sFxRJpsULTtimqyGYK7Lhk',
         gamefielddata,
@@ -361,8 +364,9 @@ export default {
 
       // update Player Data
       this.updateAllPlayerData()
+      this.redrawPlayerData()
 
-      console.log('requested state')
+      console.log('got storage')
 
       setTimeout(() => {
         this.storageLoop()
@@ -477,8 +481,15 @@ export default {
         })
 
         this.gameState.otherPlayersRaw = cleanedChildren
-        console.log(this.gameState.otherPlayersRaw)
+        // console.log(this.gameState.otherPlayersRaw)
       }
+    },
+
+    redrawPlayerData() {
+      const rawData = this.gameState.otherPlayersRaw
+      console.log(rawData)
+
+      const currentPlayers = []
     },
 
     removePlayerData() {
