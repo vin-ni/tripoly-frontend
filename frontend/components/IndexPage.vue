@@ -48,15 +48,15 @@
             </p>
             <p>
               Keep playing and going over the start, players are rewarded by two bounties : 
-              <ul>
-              <li>
-              Tezos (1 tz) 
-              </li>
-              <li>
-              CO2 saved balance
-              </li>
-              </ul>
             </p>
+             <ul>
+                <li>
+                  Tezos (1 tz) 
+                </li>
+                <li>
+                  CO2 saved balance
+                </li>
+              </ul>
             <p>
               NFTs : 
               In Tripoly, the NFTs that players acquire have been designed to be interactive and fun. You can play, manipulate and admire your NFT anywhere and at any time. 
