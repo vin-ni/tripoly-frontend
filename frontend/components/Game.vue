@@ -44,6 +44,17 @@
               alt="game field"
             />
             <div class="board-players">
+              <div
+                ref="otherPlayerPieceWrapper"
+                class="other-players-gamepiece-wrapper"
+              >
+                <div
+                  v-for="(player, index) in gameState.otherPlayers"
+                  :key="index"
+                  class="otherPlayer"
+                ></div>
+              </div>
+
               <div ref="player" class="player"></div>
             </div>
           </div>
@@ -366,8 +377,6 @@ export default {
       this.updateAllPlayerData()
       this.redrawPlayerData()
 
-      console.log('got storage')
-
       setTimeout(() => {
         this.storageLoop()
       }, this.params.stateLoop * 1000)
@@ -509,6 +518,33 @@ export default {
       })
 
       this.gameState.otherPlayers = currentPlayers
+
+      this.setPositionOfOtherPlayers()
+    },
+
+    setPositionOfOtherPlayers() {
+      this.$nextTick(() => {
+        const pieces = this.$refs.otherPlayerPieceWrapper.childNodes
+
+        for (let i = 0; i < this.gameState.otherPlayers.length; i++) {
+          const player = this.gameState.otherPlayers[i]
+          const position = player.position
+          const div = pieces[i]
+
+          // calculate coordinates
+          const coordinates = this.params.gamefielddata.positions[position]
+          const offset = this.$refs.player.offsetWidth / 2
+          const divisor = this.params.gamefielddata.divisor
+          const gameSize = this.$refs.boardgame.offsetWidth
+
+          const newCoordinates = {
+            x: (parseInt(coordinates.x) / divisor) * gameSize - offset,
+            y: (parseInt(coordinates.y) / divisor) * gameSize - offset,
+          }
+
+          this.movePlayerToPosition(div, newCoordinates)
+        }
+      })
     },
 
     removePlayerData() {
