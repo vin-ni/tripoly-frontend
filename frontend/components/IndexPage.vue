@@ -37,8 +37,50 @@
         <section class="five-row">
           <div class="text columns-two span-four">
             <p>
-              The game interface is an equilateral triangle, Composed of 18
-              juxtaposed triangular fields. The game is organized as follows:
+              The game interface of tripoly is a triangle composed of 18 triangular fields. In Tripoly, each field is a sustainable project. Each player advances through the game by rolling the dice. The players advance clockwise, only on the edge of the board
+            </p>
+            <p>
+              Once a player steps on a field, they have access to the content of this field.
+              As a player, you are are shown the project which is saved at each position 
+              At this point, you can discover the project and have different options to support the project.
+              Each project has 3 levels of support : Research, Prototype, Start-up
+              You can support the project by buying the NFT related to and also receive a CO2 balance certificate.
+            </p>
+            <p>
+              Keep playing and going over the start, players are rewarded by two bounties : 
+              Tezos (1 tz) 
+              CO2 saved balance
+            </p>
+            <p>
+              NFTs : 
+              In Tripoly, the NFTs that players acquire have been designed to be interactive and fun. You can play, manipulate and admire your NFT anywhere and at any time. 
+
+              There is a token on each field which contains an augmented reality world. A different way of owning an NFT that bridges the gap between the real world and the metaverse.
+              
+              CO2 Balance Certificate : 
+              Each project contributes to optimizing consumption and living patterns and tends to help reduce the carbon footprint. 
+            </p>
+            <br />
+            <p>
+              The more you support a project, the more you contribute to reducing the carbon footprint. Each contribution made by the players represents a different carbon footprint saving. 
+            </p>
+            <p>
+              The CO2 balance is calculated at each round based on how many projects you support as a player and how many NFT you bought. 
+            </p>
+            <p>
+              INSTALLATION : 
+              Set up your profile and personal wallet on a dedicated platform (Temple Wallet, Kukai etc) (link to how to settle your wallet)
+              Sync your wallet to the game by clicking on “sync”. 
+              Join the game to be listed as a player and be able to roll the dice
+            </p>
+            <p>
+              COURSE OF A TOUR
+              You roll the dice
+              Your pawn advances depending of the dice’s number
+              The NFT shows you which project you have
+              Read the description
+              You can join the AR World
+              You can support the project by clicking on the “support” button
             </p>
           </div>
         </section>
