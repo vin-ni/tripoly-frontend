@@ -20,6 +20,8 @@
           </button>
         </div>
       </div>
+      <button @click="increasePlayerPosition(1)">Walk to next field</button>
+      <button @click="loadNFT()">Load NFT</button>
       <div class="gaming-field">
         <div class="gamer-wrapper">
           <div
@@ -30,10 +32,6 @@
             <p>Current Position: {{ gameState.player.position }}</p>
             <p>Saved CO2 in kilo: {{ gameState.player.savedc02 }}</p>
             <p>Last dice roll: {{ gameState.player.last_dice_roll }}</p>
-            <button @click="increasePlayerPosition(1)">
-              Walk to next field
-            </button>
-            <button @click="loadNFT()">Load NFT</button>
           </div>
         </div>
         <div class="board-wrapper">
@@ -626,9 +624,10 @@ export default {
 
     async loadNFT() {
       console.log('load nft')
-      this.params.firstNftLoaded = true
-      this.params.nftLoaded = false
       if (this.storage) {
+        this.params.firstNftLoaded = true
+        this.params.nftLoaded = false
+
         const nftGlobalData =
           this.storage[0]?.children[this.gameState.player.position]
 
@@ -647,14 +646,16 @@ export default {
             '/tokens'
         )
         nftMetaData = await nftMetaData.json()
-        const filteredNftMetaData = nftMetaData[nftMetaData.length - 1]
-
+        // const filteredNftMetaData = nftMetaData[nftMetaData.length - 1] there was a bug, we're trying to take the first for now
+        const filteredNftMetaData = nftMetaData[0]
         console.log(filteredNftMetaData)
 
         this.nft.name = filteredNftMetaData?.name
         this.nft.description = filteredNftMetaData?.description
         // this.nft.arObj = filteredNftMetaData?.extras
 
+        // return
+        // // eslint-disable-next-line no-unreachable
         const arUrl = filteredNftMetaData?.extras['@@empty'].replace(
           'ipfs://',
           ''
