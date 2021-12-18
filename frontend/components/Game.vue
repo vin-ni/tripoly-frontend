@@ -527,25 +527,29 @@ export default {
 
     setPositionOfOtherPlayers() {
       this.$nextTick(() => {
-        const pieces = this.$refs.otherPlayerPieceWrapper.childNodes
+        try {
+          const pieces = this.$refs.otherPlayerPieceWrapper.childNodes
 
-        for (let i = 0; i < this.gameState.otherPlayers.length; i++) {
-          const player = this.gameState.otherPlayers[i]
-          const position = player.position
-          const div = pieces[i]
+          for (let i = 0; i < this.gameState.otherPlayers.length; i++) {
+            const player = this.gameState.otherPlayers[i]
+            const position = player.position
+            const div = pieces[i]
 
-          // calculate coordinates
-          const coordinates = this.params.gamefielddata.positions[position]
-          const offset = this.$refs.player.offsetWidth / 2
-          const divisor = this.params.gamefielddata.divisor
-          const gameSize = this.$refs.boardgame.offsetWidth
+            // calculate coordinates
+            const coordinates = this.params.gamefielddata.positions[position]
+            const offset = this.$refs.player.offsetWidth / 2
+            const divisor = this.params.gamefielddata.divisor
+            const gameSize = this.$refs.boardgame.offsetWidth
 
-          const newCoordinates = {
-            x: (parseInt(coordinates.x) / divisor) * gameSize - offset,
-            y: (parseInt(coordinates.y) / divisor) * gameSize - offset,
+            const newCoordinates = {
+              x: (parseInt(coordinates.x) / divisor) * gameSize - offset,
+              y: (parseInt(coordinates.y) / divisor) * gameSize - offset,
+            }
+
+            this.movePlayerToPosition(div, newCoordinates)
           }
-
-          this.movePlayerToPosition(div, newCoordinates)
+        } catch (error) {
+          console.log('failed repositioning players for some reason. fix pls')
         }
       })
     },
