@@ -490,6 +490,21 @@ export default {
       console.log(rawData)
 
       const currentPlayers = []
+
+      rawData.forEach((player) => {
+        const playerFronendObj = {
+          name: player.name,
+          savedc02: player.saved_co2_kilos,
+          position: player.position,
+          last_dice_roll: player.last_dice_roll,
+          walletID: player.address,
+          // add supported fields later
+        }
+
+        currentPlayers.push(playerFronendObj)
+      })
+
+      this.gameState.otherPlayers = currentPlayers
     },
 
     removePlayerData() {

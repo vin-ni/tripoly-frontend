@@ -14,6 +14,7 @@
         <p>Current Position: {{ info.position }}</p>
         <p>Saved CO2 in kilo: {{ info.savedc02 }}</p>
         <p>Last dice roll: {{ info.last_dice_roll }}</p>
+        <p>Wallet: {{ info.walletID }}</p>
       </div>
     </VueSlideToggle>
     <div class="border"></div>
