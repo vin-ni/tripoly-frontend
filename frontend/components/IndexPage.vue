@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="index">
-      <h1>Tripoly</h1>
+      <h1>Game</h1>
       <section class="five-row">
         <div class="text columns-two span-four">
           <p>

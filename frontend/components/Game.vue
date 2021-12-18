@@ -2,7 +2,7 @@
   <section class="game">
     <div class="game-wrapper">
       <div class="title">
-        <h1>Game</h1>
+        <h1>Tripoly</h1>
         <div class="game-triggers">
           <button @click="sync()">
             <p>Sync</p>
