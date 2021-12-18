@@ -153,7 +153,7 @@ export default {
         useSampleData: true,
         contract: 'KT19hqf8T654T3sFxRJpsULTtimqyGYK7Lhk',
         gamefielddata,
-        stateLoop: 10, // in seconds
+        stateLoop: 30, // in seconds
         nftLoaded: false,
         firstNftLoaded: false,
       },
