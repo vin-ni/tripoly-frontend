@@ -110,7 +110,7 @@
         </div>
       </div>
       <div v-if="!params.nftLoaded" class="loading-placeholder">
-        <p>loading info <span>.</span><span>.</span><span>.</span></p>
+        <p>loading project info <span>.</span><span>.</span><span>.</span></p>
       </div>
     </div>
   </section>
