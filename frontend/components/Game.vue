@@ -22,7 +22,10 @@
       </div>
       <div class="gaming-field">
         <div class="gamer-wrapper">
-          <div class="gamer">
+          <div
+            v-if="wallet.connected && gameState.playerDataExistent"
+            class="gamer"
+          >
             <h3>{{ gameState.player.name }}</h3>
             <p>Current Position: {{ gameState.player.position }}</p>
             <p>Saved CO2 in kilo: {{ gameState.player.savedc02 }}</p>
@@ -46,7 +49,7 @@
           </div>
         </div>
         <div class="other-players-wrapper">
-          <div class="other-players">
+          <div v-if="wallet.connected" class="other-players">
             <h3>Other players</h3>
             <div v-for="(player, index) in gameState.otherPlayers" :key="index">
               <OtherPlayer :info="player" />
@@ -60,7 +63,7 @@
           <p>Roll Dice</p>
         </button>
       </div>
-      <div v-if="wallet.connected" class="connected-account">
+      <div v-if="storage" class="connected-account">
         <p>
           Active Account: {{ wallet.address }} {{ wallet.networkType }}
           {{ wallet.originType }}
@@ -153,6 +156,7 @@ export default {
       },
       gameState: {
         gameJoined: false,
+        playerDataExistent: false,
         blockDice: true,
         dicePreviousValue: 0,
         diceValue: 0,
@@ -442,6 +446,7 @@ export default {
           this.wallet.networkType = activeAccount.network.type
           this.wallet.originType = activeAccount.origin.type
           this.wallet.connected = true
+          this.gameState.playerDataExistent = true
 
           this.putPlayerOnCorrectPosition()
         } else {
@@ -468,6 +473,7 @@ export default {
 
       if (name) {
         this.gameState.player.name = name
+        this.gameState.playerDataExistent = true
         // this.$swal.fire(`Your IP address is ${name}`)
 
         this.client
