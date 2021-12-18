@@ -8,9 +8,11 @@
             Tripoly is a round based, decentralized and multiplayer board-game on the Tezos Blockchain. The aim of 
             this game is to educate about renewable and sustainable projects in a simple, playful and interactive way. 
             <br />
+            <br />
             Some of you may know the Anti-Monopoly games. We love the idea of being Tripoly is another disruptive form 
             of Anti-monopoly. We turn the values game of Monopoly around and re-shape it for the future of web3 : from a 
             capitalistic dynamic to an open source knowledge game using the conventions and the features of the metaverse. 
+            <br />
             <br />
             Are you ready? 
           </p>
@@ -57,6 +59,7 @@
                   CO2 saved balance
                 </li>
               </ul>
+              <br />
             <p>
               NFTs : 
               In Tripoly, the NFTs that players acquire have been designed to be interactive and fun. You can play, manipulate and admire your NFT anywhere and at any time. 
@@ -87,6 +90,7 @@
                   Join the game to be listed as a player and be able to roll the dice
                 </li>
               </ul>
+              <br />
             <p>
               COURSE OF A TOUR
             </p>
