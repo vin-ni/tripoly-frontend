@@ -402,7 +402,7 @@ export default {
 
     calculateBuyerCurrentField() {
       if (this.storage) {
-        console.log('calculating buyer:')
+        // console.log('calculating buyer:')
         this.updateAllPlayerData()
         const nftGlobalData =
           this.storage[0]?.children[this.gameState.player.position]
@@ -436,10 +436,10 @@ export default {
           this.nft.buyer = ''
         }
 
-        console.log(owner)
+        // console.log(owner)
 
-        // console.log(this.storage)
-        console.log('----------------------')
+        // // console.log(this.storage)
+        // console.log('----------------------')
       }
     },
     updateAllPlayerData() {
@@ -477,6 +477,17 @@ export default {
         this.gameState.otherPlayersRaw = cleanedChildren
         console.log(this.gameState.otherPlayersRaw)
       }
+    },
+
+    removePlayerData() {
+      this.gameState.gameJoined = false
+      this.gameState.playerDataExistent = false
+      this.gameState.player.name = ''
+      this.gameState.player.savedc02 = ''
+      this.gameState.player.position = ''
+      this.gameState.player.last_dice_roll = ''
+      this.gameState.player.walletID = ''
+      this.gameState.player.walletID = []
     },
 
     // Marcel's codes
@@ -608,6 +619,7 @@ export default {
         .then((response) => {
           console.log(response)
           this.gameState.gameJoined = false
+          this.removePlayerData()
         })
         .catch((error) => console.log(error))
     },
