@@ -394,6 +394,7 @@ export default {
         this.loadNFT()
       } else {
         console.log('no previous data')
+        this.gameState.playerDataExistent = false
       }
 
       // lets update the frontend
@@ -538,6 +539,7 @@ export default {
     updateActiveAccount() {
       this.client.getActiveAccount().then((activeAccount) => {
         if (activeAccount) {
+          console.log('passed active account')
           this.gameState.blockDice = false
           this.wallet.address = activeAccount.address
           this.wallet.networkType = activeAccount.network.type
@@ -547,6 +549,7 @@ export default {
 
           this.putPlayerOnCorrectPosition()
         } else {
+          console.log('passed passive account')
           this.wallet.address = ''
           this.wallet.networkType = ''
           this.wallet.originType = ''
