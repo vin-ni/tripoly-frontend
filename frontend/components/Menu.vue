@@ -1,8 +1,7 @@
 <template>
   <nav class="menu">
-    <a href="mailto:info@schwittlick.net?subject=Tripoly">Contact</a>
-    <a href="https://github.com/schwittlick/tzconnect-hackathon">Github</a>
-    <p>Project for the TzConnect Hackathon 2021</p>
+    <a href="https://github.com/schwittlick/tripoly">Github</a>
+    <p>Project for Gitcoin - Game On! Tezos Hackathon 2021</p>
   </nav>
 </template>
 
