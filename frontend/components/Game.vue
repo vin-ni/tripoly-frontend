@@ -628,7 +628,7 @@ export default {
     },
 
     async loadNFT() {
-      console.log('load nft')
+      // console.log('load nft')
       if (this.storage) {
         this.params.firstNftLoaded = true
         this.params.nftLoaded = false
@@ -643,7 +643,18 @@ export default {
         nftGlobalData.children.forEach((element) => {
           nftObj[element.name] = element.value
         })
+        console.log('NFT Global Data:')
         console.log(nftObj)
+
+        // check if still available and adapt interface
+        const currentStock = parseInt(nftObj.current_stock)
+        if (currentStock === 0) {
+          console.log('BOUUUUUGHT')
+          this.nft.alreadyBought = true
+        } else {
+          console.log('NOT BOUGUUGUGUGHT')
+          this.nft.alreadyBought = false
+        }
 
         let nftMetaData = await fetch(
           'https://api.better-call.dev/v1/contract/hangzhou2net/' +
@@ -653,6 +664,8 @@ export default {
         nftMetaData = await nftMetaData.json()
         // const filteredNftMetaData = nftMetaData[nftMetaData.length - 1] there was a bug, we're trying to take the first for now
         const filteredNftMetaData = nftMetaData[0]
+
+        console.log('NFT Filtered Meta Data:')
         console.log(filteredNftMetaData)
 
         this.nft.name = filteredNftMetaData?.name
@@ -669,15 +682,18 @@ export default {
         let nftFileData = await fetch(`https://infura-ipfs.io/ipfs/${arUrl}/`)
         nftFileData = await nftFileData.json()
 
+        console.log('NFT File Data:')
         console.log(nftFileData)
         const artifactUri = nftFileData.artifactUri.replace('ipfs://', '')
 
-        console.log(artifactUri)
+        // console.log(artifactUri)
 
         let nftSpecificData = await fetch(
           `https://infura-ipfs.io/ipfs/${artifactUri}/`
         )
         nftSpecificData = await nftSpecificData.json()
+
+        console.log('NFT Image Data:')
         console.log(nftSpecificData)
         this.nft.arObj = nftSpecificData
 
