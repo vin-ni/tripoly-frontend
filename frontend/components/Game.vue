@@ -394,6 +394,7 @@ export default {
         this.loadNFT()
       } else {
         console.log('no previous data')
+        // still hide the user data if no name existant
         this.gameState.playerDataExistent = false
       }
 
