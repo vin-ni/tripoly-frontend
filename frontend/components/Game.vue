@@ -409,6 +409,7 @@ export default {
         console.log('no previous data')
         // still hide the user data if no name existant
         this.gameState.playerDataExistent = false
+        this.movePlayerToCurrentField() // just to be responsice
       }
 
       // lets update the frontend
@@ -520,6 +521,8 @@ export default {
       this.gameState.otherPlayers = currentPlayers
 
       this.setPositionOfOtherPlayers()
+
+      this.putMainPlayerOnCorrectPosition()
     },
 
     setPositionOfOtherPlayers() {
