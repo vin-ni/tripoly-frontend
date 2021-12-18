@@ -106,7 +106,8 @@
             buying the token.
           </h3>
           <h3 v-if="nft.alreadyBought" class="span-four">
-            This nft is already sold and owned by {{ nft.buyer }}.
+            This project has already been supported. The current holder of the
+            token is {{ nft.buyer }}.
           </h3>
         </div>
         <div v-if="!nft.alreadyBought" class="content">
@@ -138,7 +139,7 @@ export default {
         useSampleData: true,
         contract: 'KT19hqf8T654T3sFxRJpsULTtimqyGYK7Lhk',
         gamefielddata,
-        stateLoop: 30, // in seconds
+        stateLoop: 10, // in seconds
         nftLoaded: false,
         firstNftLoaded: false,
       },
@@ -155,7 +156,7 @@ export default {
         projectImgUrl: '',
         qrUrl: '',
         alreadyBought: false,
-        buyer: 'xyz',
+        buyer: '',
       },
       gameState: {
         gameJoined: false,
@@ -172,6 +173,7 @@ export default {
           supportedGameFields: [],
         },
         otherPlayers: [],
+        otherPlayersRaw: [],
       },
       sampleData: {
         player: {
@@ -357,6 +359,9 @@ export default {
       const cleaned = obj[0].children
       this.storage = cleaned
 
+      // update Player Data
+      this.updateAllPlayerData()
+
       console.log('requested state')
 
       setTimeout(() => {
@@ -392,8 +397,86 @@ export default {
       }
 
       // lets update the frontend
+      // console.log(myPlayerData)
+    },
 
-      console.log(myPlayerData)
+    calculateBuyerCurrentField() {
+      if (this.storage) {
+        console.log('calculating buyer:')
+        this.updateAllPlayerData()
+        const nftGlobalData =
+          this.storage[0]?.children[this.gameState.player.position]
+        const nftObj = {
+          name: nftGlobalData.name,
+        }
+        nftGlobalData.children.forEach((element) => {
+          nftObj[element.name] = element.value
+        })
+
+        const tokenAddressCurrentField = nftObj.token_address
+
+        let owner = false
+
+        // now loop through all player data and check if anyone owns that token
+        this.gameState.otherPlayersRaw.forEach((player) => {
+          const supportedFields = player.supported_fields
+          if (Array.isArray(supportedFields)) {
+            supportedFields.forEach((supportedField) => {
+              const token = supportedField.token_address
+              if (token === tokenAddressCurrentField) {
+                owner = player
+              }
+            })
+          }
+        })
+
+        if (owner.name) {
+          this.nft.buyer = `${owner.name} (${owner.address})`
+        } else {
+          this.nft.buyer = ''
+        }
+
+        console.log(owner)
+
+        // console.log(this.storage)
+        console.log('----------------------')
+      }
+    },
+    updateAllPlayerData() {
+      if (this.storage) {
+        const allPlayers = this.storage[1]
+        // console.log(allPlayers)
+        const cleanedChildren = []
+
+        allPlayers.children.forEach((child) => {
+          const obj = {
+            address: child.name,
+          }
+
+          child.children.forEach((data) => {
+            obj[data.name] = data.value
+
+            // fix for supported_fields that has additinal children
+            if (data.name === 'supported_fields' && data.children) {
+              obj.supported_fields = []
+              const supportedFields = data.children
+              // console.log(data.children)
+              supportedFields.forEach((sF) => {
+                const sFobj = {}
+                sF.children.forEach((child) => {
+                  sFobj[child.name] = child.value
+                })
+                obj.supported_fields.push(sFobj)
+              })
+            }
+          })
+
+          cleanedChildren.push(obj)
+        })
+
+        this.gameState.otherPlayersRaw = cleanedChildren
+        console.log(this.gameState.otherPlayersRaw)
+      }
     },
 
     // Marcel's codes
@@ -650,6 +733,7 @@ export default {
         const currentStock = parseInt(nftObj.current_stock)
         if (currentStock === 0) {
           this.nft.alreadyBought = true
+          this.calculateBuyerCurrentField()
         } else {
           this.nft.alreadyBought = false
         }
