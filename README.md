@@ -1,1 +1,1 @@
-# tzconnect-hackathon-2021
+# tripoly-frontend
