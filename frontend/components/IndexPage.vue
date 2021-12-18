@@ -5,7 +5,7 @@
       <section class="five-row">
         <div class="text columns-two span-four">
           <p>
-            We want to create a decentralized board-game on Tezos, toeducate
+            HALLO We want to create a decentralized board-game on Tezos, toeducate
             people about renewable and sustainable projects ina playful and
             interactive way. We want to disrupt the game idea of Monopoly and
             turn itsvalues around, from capitalism and re-shape it for the
