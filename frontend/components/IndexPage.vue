@@ -75,19 +75,41 @@
             </p>
             <p>
               INSTALLATION : 
-              Set up your profile and personal wallet on a dedicated platform (Temple Wallet, Kukai etc) (link to how to settle your wallet)
-              Sync your wallet to the game by clicking on “sync”. 
-              Join the game to be listed as a player and be able to roll the dice
             </p>
+             <ul>
+                <li>
+                  Set up your profile and personal wallet on a dedicated platform (Temple Wallet, Kukai etc) (link to how to settle your wallet) 
+                </li>
+                <li>
+                  Sync your wallet to the game by clicking on “sync”.
+                </li>
+                <li>
+                  Join the game to be listed as a player and be able to roll the dice
+                </li>
+              </ul>
             <p>
               COURSE OF A TOUR
-              You roll the dice
-              Your pawn advances depending of the dice’s number
-              The NFT shows you which project you have
-              Read the description
-              You can join the AR World
-              You can support the project by clicking on the “support” button
             </p>
+            <ul>
+                <li>
+                  You roll the dice
+                </li>
+                <li>
+                  Your playing figure advances depending of the dice’s number
+                </li>
+                <li>
+                  The NFT shows you which project you have
+                </li>
+                <li>
+                  Read the NFT description below
+                </li>
+                <li>
+                  You can join the AR world by scanning the QR code with your iOS phone/tablet
+                </li>
+                <li>
+                  You can support the project by clicking on the “support” button
+                </li>
+              </ul>
           </div>
         </section>
       </VueSlideToggle>
